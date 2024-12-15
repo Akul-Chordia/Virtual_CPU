@@ -1,5 +1,6 @@
 #pragma once
 
+//Basic math blocks
 void HalfAdder(bool a, bool b, bool &sum, bool &carry) {
     sum = XOR(a, b);
     carry = AND(a, b);
