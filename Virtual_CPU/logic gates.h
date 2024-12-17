@@ -22,3 +22,6 @@ bool XOR(bool a, bool b) {
     return AND(OR(a, b), NAND(a, b));
 }
 
+bool NOR(bool a, bool b){
+    return NOT(OR(a, b));
+}
