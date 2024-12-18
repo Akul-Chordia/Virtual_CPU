@@ -85,19 +85,65 @@ void test_d_flipflop(){
 
 void test_one_bit_register(){
     bool a = 0;
+    bool b = 0;
     
-    one_bit_register(0, 0, 0, a);
+    one_bit_register(0, 0, 0, a, b);
     std::cout << a << std::endl;
-    one_bit_register(1, 0, 1, a);
+    one_bit_register(1, 0, 1, a, b);
     std::cout << a << std::endl;
-    one_bit_register(1, 1, 0, a);
+    one_bit_register(1, 1, 0, a, b);
     std::cout << a << std::endl;
-    one_bit_register(1, 1, 1, a);
+    one_bit_register(1, 1, 1, a, b);
     std::cout << a << std::endl;
-    one_bit_register(0, 1, 1, a);
+    one_bit_register(0, 1, 1, a, b);
     std::cout << a << std::endl;
-    one_bit_register(0, 1, 0, a);
+    one_bit_register(0, 1, 0, a, b);
     std::cout << a << std::endl;
-    one_bit_register(0, 1, 1, a);
+    one_bit_register(0, 1, 1, a, b);
     std::cout << a << std::endl;
 }
+
+void print_register(bool value[8]){
+    for (int i = 0; i < 8; i++) std::cout << value[i];
+    std::cout << std::endl;
+}
+
+void test_eight_bit_register() {
+    bool data[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    bool value[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    bool temp[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+
+    std::cout << "Initial state of 8-bit register: ";
+    for (int i = 0; i < 8; i++) std::cout << value[i];
+    std::cout << std::endl;
+
+
+    data[0] = 1; data[1] = 0; data[2] = 1; data[3] = 0;
+    data[4] = 1; data[5] = 0; data[6] = 1; data[7] = 0;
+    
+    eight_bit_register(data, 0, 0, value, temp);
+    print_register(value); //00000000
+    eight_bit_register(data, 1, 0, value, temp);
+    print_register(value); //00000000
+    eight_bit_register(data, 1, 1, value, temp);
+    print_register(value); //10101010
+    
+    data[0] = 1; data[1] = 1; data[2] = 1; data[3] = 1;
+    data[4] = 1; data[5] = 1; data[6] = 1; data[7] = 1;
+    
+    eight_bit_register(data, 1, 1, value, temp);
+    print_register(value); //10101010
+    eight_bit_register(data, 0, 1, value, temp);
+    print_register(value); //10101010
+    eight_bit_register(data, 1, 1, value, temp);
+    print_register(value); //10101010
+    eight_bit_register(data, 1, 0, value, temp);
+    print_register(value); //10101010
+    eight_bit_register(data, 0, 0, value, temp);
+    print_register(value); //10101010
+    eight_bit_register(data, 1, 0, value, temp);
+    print_register(value); //10101010
+    eight_bit_register(data, 1, 1, value, temp);
+    print_register(value); //11111111
+}
+
