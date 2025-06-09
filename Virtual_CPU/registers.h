@@ -7,10 +7,12 @@ void d_latch(bool data, bool store, bool &value){
     value = OR(set, AND(value, NOT(reset)));
 }
 
+
 void d_flopflop(bool data, bool clock, bool &value, bool &temp){
     d_latch(data, NOT(clock), temp);
     d_latch(temp, clock, value);
 }
+
 
 void one_bit_register(bool data, bool store, bool clock, bool &value, bool &temp) {
     data = mux_2_to_1(value, data, store);
@@ -24,4 +26,9 @@ void eight_bit_register(bool data[8], bool store, bool clock, bool value[8], boo
     }
 }
 
+
+void read_register(bool value[8]){
+    for (int i = 0; i < 8; i++) std::cout << value[i];
+    std::cout << std::endl;
+}
 
