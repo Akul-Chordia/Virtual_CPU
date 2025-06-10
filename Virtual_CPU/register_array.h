@@ -78,6 +78,10 @@ public:
         // Overflow flag
         flags[3] = overflow;
     }
+    
+    bool get_flag(int a){
+        return flags[a];
+    }
 
     void print_registers() {
         std::cout << "Registers:" << std::endl;
