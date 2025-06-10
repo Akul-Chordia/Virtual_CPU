@@ -27,8 +27,7 @@ void print_help() {
     std::cout << "  0x21XX -  (B ← operand)" << std::endl;
     std::cout << "  0x22XX -  (C ← operand)" << std::endl;
     std::cout << "  0x23XX -  (D ← operand)" << std::endl;
-    std::cout << "  0x24XX -  (MAR ← operand)" << std::endl;
-    std::cout << "  0x25XX -  (TEMP ← operand)" << std::endl;
+
     std::cout << "  0x26XX -  (A ← B)" << std::endl;
     std::cout << "  0x27XX -  (A ← C)" << std::endl;
     std::cout << "  0x28XX -  (A ← D)" << std::endl;
@@ -36,15 +35,11 @@ void print_help() {
     std::cout << "  0x2BXX -  (B ← A)" << std::endl;
     std::cout << "  0x2CXX -  (C ← A)" << std::endl;
     std::cout << "  0x2DXX -  (D ← A)" << std::endl;
-    std::cout << "  0x2EXX -  (MAR ← A)" << std::endl;
-    std::cout << "  0x2FXX -  (TEMP ← A)" << std::endl;
     
     std::cout << "  0x30XX -  (A ← Mem[operand])" << std::endl;
     std::cout << "  0x31XX -  (B ← Mem[operand])" << std::endl;
     std::cout << "  0x32XX -  (C ← Mem[operand])" << std::endl;
     std::cout << "  0x33XX -  (D ← Mem[operand])" << std::endl;
-    std::cout << "  0x34XX -  (MAR ← Mem[operand])" << std::endl;
-    std::cout << "  0x35XX -  (TEMP ← Mem[operand])" << std::endl;
     
     std::cout << "  0x3AXX -  (Mem[operand] ← A)" << std::endl;
     std::cout << "  0x3BXX -  (Mem[operand] ← B)" << std::endl;

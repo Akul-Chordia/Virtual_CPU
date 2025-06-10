@@ -46,7 +46,7 @@ public:
     void execute_instruction(bool opcode[8], bool operand[8]) {
         int op = bool_array_to_int(opcode);
         int reg_addr = bool_array_to_int(operand);
-        
+        bool a_val[8], b_val[8];
         bool result[8] = {0};
         bool carry = false;
         bool negative = false;
@@ -64,7 +64,6 @@ public:
                 
             case 254: // Print A
             {
-                bool a_val[8];
                 registers.read_register(a_val, "A");
                 std::cout << "Register A: ";
                 for (int i = 0; i < 8; i++) std::cout << a_val[i];
@@ -73,7 +72,6 @@ public:
                 break;
                 
             case 1: // A ← A + B
-                bool a_val[8], b_val[8];
                 registers.read_register(a_val, "A");
                 registers.read_register(b_val, "B");
                 eight_bit_adder(a_val, b_val, 0, result, carry);
@@ -84,7 +82,6 @@ public:
                 
             case 2: // A ← A - B
             {
-                bool a_val[8], b_val[8];
                 registers.read_register(a_val, "A");
                 registers.read_register(b_val, "B");
                 eight_bit_sub(a_val, b_val, 0, result, negative);
@@ -96,7 +93,6 @@ public:
                 
             case 3: // A ← A + 1
             {
-                bool a_val[8];
                 registers.read_register(a_val, "A");
                 increment(a_val, carry);
                 registers.write_register(a_val, 1, 0, "A");
@@ -107,7 +103,6 @@ public:
                 
             case 4: // A ← A - 1
             {
-                bool a_val[8];
                 registers.read_register(a_val, "A");
                 decrement(a_val, negative);
                 registers.write_register(a_val, 1, 0, "A");
@@ -118,7 +113,6 @@ public:
                 
             case 5: // A ← -A
             {
-                bool a_val[8];
                 registers.read_register(a_val, "A");
                 two_complement(a_val, a_val, negative);
                 registers.write_register(a_val, 1, 0, "A");
@@ -128,34 +122,41 @@ public:
                 break;
                 
             case 16: // A ← A & B
+            {
                 registers.read_register(a_val, "A");
                 registers.read_register(b_val, "B");
                 eight_bit_ADD(a_val, b_val);
                 registers.write_register(a_val, 1, 0, "A");
                 registers.write_register(a_val, 1, 1, "A");
+            }
                 break;
-                
             case 17: // A ← A | B
+            {
                 registers.read_register(a_val, "A");
                 registers.read_register(b_val, "B");
                 eight_bit_OR(a_val, b_val);
                 registers.write_register(a_val, 1, 0, "A");
                 registers.write_register(a_val, 1, 1, "A");
+            }
                 break;
                 
             case 18: // A ← A ^ B
+            {
                 registers.read_register(a_val, "A");
                 registers.read_register(b_val, "B");
                 eight_bit_XOR(a_val, b_val);
                 registers.write_register(a_val, 1, 0, "A");
                 registers.write_register(a_val, 1, 1, "A");
+            }
                 break;
                 
             case 19: // A ← ~A
+            {
                 registers.read_register(a_val, "A");
                 negate(a_val);
                 registers.write_register(a_val, 1, 0, "A");
                 registers.write_register(a_val, 1, 1, "A");
+            }
                 break;
             case 32: // A ← operand
             {
@@ -184,30 +185,99 @@ public:
                 registers.write_register(operand, 1, 1, "D");
             }
                 break;
+            case 38: // A ← B
+            {
+                registers.read_register(a_val, "B");
+                registers.write_register(operand, 1, 0, "A");
+                registers.write_register(operand, 1, 1, "A");
+            }
+                break;
+            case 39: // A ← C
+            {
+                registers.read_register(a_val, "C");
+                registers.write_register(operand, 1, 0, "A");
+                registers.write_register(operand, 1, 1, "A");
+            }
+                break;
+            case 40: // A ← D
+            {
+                registers.read_register(a_val, "D");
+                registers.write_register(operand, 1, 0, "A");
+                registers.write_register(operand, 1, 1, "A");
+            }
+                break;
+            case 43: // B ← A
+            {
+                registers.read_register(a_val, "A");
+                registers.write_register(operand, 1, 0, "B");
+                registers.write_register(operand, 1, 1, "B");
+            }
+                break;
+            case 44: // C ← A
+            {
+                registers.read_register(a_val, "A");
+                registers.write_register(operand, 1, 0, "C");
+                registers.write_register(operand, 1, 1, "C");
+            }
+                break;
+            case 45: // D ← A
+            {
+                registers.read_register(a_val, "A");
+                registers.write_register(operand, 1, 0, "D");
+                registers.write_register(operand, 1, 1, "D");
+            }
+                break;
+            case 48: // A ← Mem[operand]
+            {
+                read_memory(reg_addr, a_val, 1);
+                registers.write_register(a_val, 1, 0, "A");
+                registers.write_register(a_val, 1, 1, "A");
+            }
+                break;
+                
+            case 49: // B ← Mem[operand]
+            {
+                read_memory(reg_addr, a_val, 1);
+                registers.write_register(a_val, 1, 0, "B");
+                registers.write_register(a_val, 1, 1, "B");
+            }
+                break;
+                
+            case 50: // C ← Mem[operand]
+            {
+                read_memory(reg_addr, a_val, 1);
+                registers.write_register(a_val, 1, 0, "C");
+                registers.write_register(a_val, 1, 1, "C");
+            }
+                break;
+                
+            case 51: // D ← Mem[operand]
+            {
+                read_memory(reg_addr, a_val, 1);
+                registers.write_register(a_val, 1, 0, "D");
+                registers.write_register(a_val, 1, 1, "D");
+            }
+                break;
             case 58: // Mem[operand] ← A
             {
-                bool a_val[8];
                 registers.read_register(a_val, "A");
                 write_memory(reg_addr ,a_val, 1);
             }
                 break;
             case 59: // Mem[operand] ← B
             {
-                bool a_val[8];
                 registers.read_register(a_val, "B");
                 write_memory(reg_addr ,a_val, 1);
             }
                 break;
             case 60: // Mem[operand] ← C
             {
-                bool a_val[8];
                 registers.read_register(a_val, "C");
                 write_memory(reg_addr ,a_val, 1);
             }
                 break;
             case 61: // Mem[operand] ← D
             {
-                bool a_val[8];
                 registers.read_register(a_val, "D");
                 write_memory(reg_addr ,a_val, 1);
             }
@@ -233,23 +303,43 @@ public:
                 break;
             case 67: // if A == B, PC ← operand (JE)
             {
-                bool a_val[8], b_val[8];
+                bool flag = true;
                 registers.read_register(a_val, "A");
                 registers.read_register(b_val, "B");
                 for (int i = 0; i<8; i++){
                     if (a_val[i] != b_val[i]){
+                        flag = false ;
                         break;
                     }
                 }
-                
+                if (flag){
+                    registers.set_pc(operand);
+                }
+            }
                 break;
-                
+            case 112: // if A > B, PC ← operand (JE)
+            {
+                bool flag = false;
+                registers.read_register(a_val, "A");
+                registers.read_register(b_val, "B");
+                for (int i = 0; i<8; i++){
+                    if (a_val[i] > b_val[i]){
+                        flag = true ;
+                        break;
+                    } else if (a_val[i] < b_val[i]){
+                        break;
+                    }
+                }
+                if (flag){
+                    registers.set_pc(operand);
+                }
+            }
+                break;
             default:
                 std::cout << "Unknown instruction: " << op << std::endl;
                 break;
             }
         }
-    }
 
 
     void load_program(const std::vector<std::string>& hex_program) {
