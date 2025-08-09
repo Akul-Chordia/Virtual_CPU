@@ -95,6 +95,12 @@ Step by step debugging mode:
 * C++11 or later
 * No external libraries
 
+## Current Issues being worked on
+
+* The clock signal isn't an external clock yet
+* No labeling for jump instructions
+* Need a better memory addressing system
+
 ## Credits
 
 Designed and implemented by Akul as a low-level CPU simulation project using fundamental digital logic principles.
