@@ -1,54 +1,58 @@
 #pragma once
 #include <bitset>
 
-std::bitset<8> memory[512];
-std::bitset<8> ext_memory[256];
+class Memory{
+private:
+    bool memory[512][8];
+    bool ext_memory[256][8];
 
-void read_memory(int address, std::bitset<8> &data, bool select) {
-    if (select == 0) {
-        if (address >= 0 && address < 256) {
-            data = memory[address];
-        }
-    } else {
-        if (address >= 0 && address < 256) {
-            data = ext_memory[address];
+public:
+    void read_memory(int address, bool data[8], bool select) {
+        if (select == 0) {
+            if (address >= 0 && address < 512) {
+                for (int i = 0; i < 8; i++) {
+                    data[i] = memory[address][i];
+                }
+            }
+        } else {
+            if (address >= 0 && address < 256) {
+                for (int i = 0; i < 8; i++) {
+                    data[i] = ext_memory[address][i];
+                }
+            }
         }
     }
-}
 
-void write_memory(int address, const std::bitset<8> &data, bool select) {
-    if (select == 0) {
-        if (address >= 0 && address < 256) {
-            memory[address] = data;
-        }
-    } else {
-        if (address >= 0 && address < 256) {
-            ext_memory[address] = data;
-        }
-    }
-}
-
-void clear_memory(bool select) {
-    if (select == 0) {
-        for (int i = 0; i < 256; i++) {
-            memory[i].reset();
-        }
-    } else {
-        for (int i = 0; i < 256; i++) {
-            ext_memory[i].reset();
+    void write_memory(int address, bool data[8], bool select) {
+        if (select == 0) {
+            if (address >= 0 && address < 512) {
+                for (int i = 0; i < 8; i++) {
+                    memory[address][i] = data[i];
+                }
+            }
+        } else {
+            if (address >= 0 && address < 256) {
+                for (int i = 0; i < 8; i++) {
+                    ext_memory[address][i] = data[i];
+                }
+            }
         }
     }
-}
 
-// Overloads for bool array
-void read_memory(int address, bool data[8], bool select) {
-    std::bitset<8> temp;
-    read_memory(address, temp, select);
-    for (int i = 0; i < 8; ++i) data[i] = temp[i];
-}
+    void clear_memory(bool select) {
+        if (select == 0) {
+            for (int i = 0; i < 512; i++) {
+                for (int j = 0; j < 8; j++) {
+                    memory[i][j] = 0;
+                }
+            }
+        } else {
+            for (int i = 0; i < 256; i++) {
+                for (int j = 0; j < 8; j++) {
+                    ext_memory[i][j] = 0;
+                }
+            }
+        }
+    }
 
-void write_memory(int address, bool data[8], bool select) {
-    std::bitset<8> temp;
-    for (int i = 0; i < 8; ++i) temp[i] = data[i];
-    write_memory(address, temp, select);
-}
+};
