@@ -208,17 +208,16 @@ void test_decrement(){
 }
 
 
-//void test_complement(){
-//    bool a[8] = {0,1,1,1,1,0,1,0};
-//    bool negative = 0;
-//    std::cout << negative << " ";
-//    for (int i = 0; i < 8; i++){
-//        std::cout << a[i];
-//    }
-//    two_complement(a,negative);
-//    std::cout << std::endl;
-//    std::cout << negative << " ";
-//}
+void test_complement(){
+    bool a[8] = {0,1,1,1,1,0,1,0};
+    bool carry;
+    two_complement(a,carry);
+    for (int i = 0; i < 8; i++){
+        std::cout << a[i];
+    }
+    std::cout << std::endl;
+    std::cout << carry << " ";
+}
 
 
 

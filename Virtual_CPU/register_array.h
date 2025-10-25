@@ -23,7 +23,7 @@ public:
     void clear_registers() {
         for (int i = 0; i < 8; i++) {
             A[i] = B[i] = C[i] = D[i] = 0;
-            PC[i] = Temp[i] = 0;
+            PC[i] = Temp[i] = MAR[i] = 0;
         }
         for (int i = 0; i < 4; i++) flags[i] = 0;
     }
@@ -34,7 +34,7 @@ public:
         else if (reg == "C") eight_bit_register(data, store, clock, C, tempC);
         else if (reg == "D") eight_bit_register(data, store, clock, D, tempD);
         else if (reg == "PC") eight_bit_register(data, store, clock, PC, tempPC);
-        else if (reg == "MAR") eight_bit_register(data, store, clock, PC, tempMAR);
+        else if (reg == "MAR") eight_bit_register(data, store, clock, MAR, tempMAR);
         else if (reg == "Temp") eight_bit_register(data, store, clock, Temp, tempTemp);
     }
     

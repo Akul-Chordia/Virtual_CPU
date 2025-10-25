@@ -57,6 +57,7 @@ public:
         bool result[8] = {0};
         bool carry = false;
         bool negative = false;
+        bool set_PC = false;
         //std::cout << "doing instruction: " << op << std::endl;
         
         
@@ -306,12 +307,15 @@ public:
             case 64: // PC ← operand (JMP)
             {
                 registers.set_pc(operand);
+                set_PC = true;
             }
                 break;
             case 65: // if ZF == 1, PC ← operand (JNZ)
             {
                 if (registers.get_flag(0) != 0){
                     registers.set_pc(operand);
+                    set_PC = true;
+
                 }
             }
                 break;
@@ -319,6 +323,7 @@ public:
             {
                 if (registers.get_flag(0) == 0){
                     registers.set_pc(operand);
+                    set_PC = true;
                 }
             }
                 break;
@@ -335,6 +340,7 @@ public:
                 }
                 if (flag){
                     registers.set_pc(operand);
+                    set_PC = true;
                 }
             }
                 break;
@@ -353,6 +359,7 @@ public:
                 }
                 if (flag){
                     registers.set_pc(operand);
+                    set_PC = true;
                 }
             }
                 break;
@@ -360,7 +367,11 @@ public:
                 std::cout << "Unknown instruction: " << op << std::endl;
                 break;
             }
+        
+        if (!halt_flag && !set_PC) {
+            registers.increment_pc();
         }
+    }
 
 
     void load_program(const std::vector<std::string>& hex_program) {
@@ -395,12 +406,10 @@ public:
             execute_instruction(opcode, operand);
             
             // Increment PC (unless it's a halt instruction)
-            if (!halt_flag) {
-                registers.increment_pc();
-            }
+            
             
             // Prevent infinite loops
-            if (pc_int > 200) {
+            if (pc_int > 400) {
                 std::cout << "Program ran too long. Halting to prevent infinite loop." << std::endl;
                 break;
             }
@@ -438,12 +447,23 @@ public:
         // Execute
         execute_instruction(opcode, operand);
         
-        // Increment PC
-        if (!halt_flag) {
-            registers.increment_pc();
-        }
-        
         registers.print_registers();
+    }
+    
+    int get_register_value(const std::string &reg) {
+        bool* reg_data = registers.get_register(reg);
+        if (reg_data) {
+            return bool_array_to_int(reg_data);
+        }
+        return -1;
+    }
+
+    int get_pc_value() {
+        return bool_array_to_int(registers.get_pc());
+    }
+    
+    bool get_flag_value(int flag_index) {
+        return registers.get_flag(flag_index);
     }
 
     bool is_halted() { return halt_flag; }
