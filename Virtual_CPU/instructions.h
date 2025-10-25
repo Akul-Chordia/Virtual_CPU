@@ -68,8 +68,8 @@ void print_help() {
     
     std::cout << "  0x70XX -  (A > B, PC ← operand)" << std::endl;
     std::cout << "  0x00XX -  (no operation)" << std::endl;
-    std::cout << "  0xFDXX -  (Print A)" << std::endl;
-    std::cout << "  0xFEXX -  (Print B)" << std::endl;
+    std::cout << "  0xFDXX -  (Print B)" << std::endl;
+    std::cout << "  0xFEXX -  (Print A)" << std::endl;
     std::cout << "  0xFFXX -  (halt execution)" << std::endl;
     std::cout << std::endl;
 }

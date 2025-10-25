@@ -70,7 +70,7 @@ public:
                 std::cout << "CPU HALTED" << std::endl;
                 break;
                 
-            case 253: // Print A
+            case 254: // Print A
             {
                 registers.read_register(a_val, "A");
                 std::cout << "Register A: ";
@@ -79,7 +79,7 @@ public:
             }
                 break;
                 
-            case 254: // Print B
+            case 253: // Print B
             {
                 registers.read_register(b_val, "B");
                 std::cout << "Register B: ";
