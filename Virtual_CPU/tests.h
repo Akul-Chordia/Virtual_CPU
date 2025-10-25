@@ -208,28 +208,24 @@ void test_decrement(){
 }
 
 
-void test_complement(){
-    bool a[8] = {0,1,1,1,1,0,1,0};
-    bool b[8] = {0};
-    bool negative = 0;
-    std::cout << negative << " ";
-    for (int i = 0; i < 8; i++){
-        std::cout << a[i];
-    }
-    two_complement(a,b, negative);
-    std::cout << std::endl;
-    std::cout << negative << " ";
-    for (int i = 0; i < 8; i++){
-        std::cout << b[i];
-    }
-}
+//void test_complement(){
+//    bool a[8] = {0,1,1,1,1,0,1,0};
+//    bool negative = 0;
+//    std::cout << negative << " ";
+//    for (int i = 0; i < 8; i++){
+//        std::cout << a[i];
+//    }
+//    two_complement(a,negative);
+//    std::cout << std::endl;
+//    std::cout << negative << " ";
+//}
 
 
 
 void test_AND(){
     bool a[8] = {0,1,1,1,1,0,1,0};
     bool b[8] = {0,1,0,1,1,0,1,1};
-    eight_bit_ADD(a, b);
+    eight_bit_AND(a, b);
     for (int i = 0; i < 8; i++){
         std::cout << a[i];
     }
@@ -267,5 +263,4 @@ void test_NOT(){
     }
     std::cout << std::endl;
 }
-
 

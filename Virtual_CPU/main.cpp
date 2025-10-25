@@ -31,8 +31,8 @@ int main() {
     //test_XOR();
     //test_NOT();
     
-
-    CPU cpu;
+    Memory memory;
+    CPU cpu(memory);
     std::string command;
     
     std::cout << "Simple CPU Simulator" << std::endl;
