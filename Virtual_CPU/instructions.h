@@ -9,6 +9,7 @@ void print_help() {
     std::cout << "  step         - Execute one instruction" << std::endl;
     std::cout << "  status       - Show register status" << std::endl;
     std::cout << "  example      - Load and run example program" << std::endl;
+    std::cout << "  test         - Run tests" << std::endl;
     std::cout << "  quit         - Exit simulator" << std::endl;
     std::cout << std::endl;
     std::cout << "Instruction Set:" << std::endl;

@@ -12,7 +12,7 @@
 #include "CPU.h"
 #include "tests.h"
 #include "instructions.h"
-
+#include "cpu_tests.h"
 
 int main() {
     
@@ -83,6 +83,9 @@ int main() {
             cpu.load_program(example);
             std::cout << "Example program loaded: 5 + 3 = ?" << std::endl;
             std::cout << "Use 'run' to execute or 'step' to debug." << std::endl;
+        }
+        else if (cmd == "test") {
+            run_tests(cpu);
         }
         else if (cmd == "quit" || cmd == "exit") {
             std::cout << "Goodbye!" << std::endl;
