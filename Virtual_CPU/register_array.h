@@ -37,6 +37,11 @@ public:
         else if (reg == "MAR") eight_bit_register(data, store, clock, PC, tempMAR);
         else if (reg == "Temp") eight_bit_register(data, store, clock, Temp, tempTemp);
     }
+    
+    void clocked_write_register(bool data[8], const std::string &reg) {
+            write_register(data, 1, 0, reg);
+            write_register(data, 1, 1, reg);
+        }
 
     void read_register(bool output[8], const std::string &reg) {
         if (reg == "A") for (int i = 0; i < 8; i++) output[i] = A[i];
